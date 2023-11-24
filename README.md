@@ -6,4 +6,4 @@ The "frame" is a main method that takes an integer (the task number) as argument
 
 Usage:
 
-python ./main.py <Task Number>
+python main.py \<Task Number\>
