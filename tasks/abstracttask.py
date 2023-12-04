@@ -10,7 +10,7 @@ class AbstractTask(ABC):
     
     def read_file_lines(self):
         f = open("./taskfiles/" + str(self.number), "r")
-        return f.readlines()
+        return [x.strip() for x in f.readlines()]
     
     def read_file_string(self):
         f = open("./taskfiles/" + str(self.number), "r")
