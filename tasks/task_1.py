@@ -1,5 +1,3 @@
-import re
-
 from tasks.abstracttask import AbstractTask
 
 
@@ -24,29 +22,16 @@ class Task_1(AbstractTask):
         return self.calculate_num(rows)
 
     def get_numbers_from_text(self, text):
-        map = [
-            'one',
-            'two',
-            'three',
-            'four',
-            'five',
-            'six',
-            'seven',
-            'eight',
-            'nine'
-        ]
-
-        pos = 0
+        numberNames = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
         result = []
-        while pos < len(text):
+        for pos in range(len(text)-1):
             if text[pos].isdigit():
                 result.append(text[pos])
             else:
-                matches = [(text[pos:len(text)-1].startswith(x), str(idx+1)) for idx, x in enumerate(map)]
+                matches = [(text[pos:len(text)-1].startswith(x), str(idx+1)) for idx, x in enumerate(numberNames)]
                 match = [x[1] for x in matches if x[0] is True]
                 if len(match) != 0:
                     result.append(match[0])
-            pos += 1
         return ''.join(result)
 
 
