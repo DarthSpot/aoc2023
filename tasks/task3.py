@@ -4,7 +4,7 @@ import re
 from tasks.abstracttask import AbstractTask
 
 
-class Task_3(AbstractTask):
+class Task3(AbstractTask):
     def __init__(self):
         super().__init__(3)
 
@@ -61,5 +61,5 @@ class Task_3(AbstractTask):
 
 
 
-Task_3()
+Task3()
 

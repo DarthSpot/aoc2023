@@ -1,7 +1,7 @@
 from tasks.abstracttask import AbstractTask
 
 
-class Task_1(AbstractTask):
+class Task1(AbstractTask):
 
     def __init__(self):
         super().__init__(1)
@@ -35,4 +35,4 @@ class Task_1(AbstractTask):
         return ''.join(result)
 
 
-Task_1()
+Task1()

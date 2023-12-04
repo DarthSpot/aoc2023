@@ -1,4 +1,5 @@
-from tasks.task_1 import Task_1
-from tasks.task_2 import Task_2
-from tasks.task_3 import Task_3
+from tasks.task1 import Task1
+from tasks.task2 import Task2
+from tasks.task3 import Task3
+from tasks.task4 import Task4
 

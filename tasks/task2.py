@@ -3,7 +3,7 @@ import math
 from tasks.abstracttask import AbstractTask
 
 
-class Task_2(AbstractTask):
+class Task2(AbstractTask):
 
     def __init__(self):
         super().__init__(2)
@@ -46,4 +46,4 @@ class Task_2(AbstractTask):
         return result
 
 
-Task_2()
+Task2()
