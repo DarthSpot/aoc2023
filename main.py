@@ -1,6 +1,7 @@
 import sys
 
-from tasks.task_1 import *
+from tasks import *
+from tasks.abstracttask import AbstractTask
 
 
 def main():
