@@ -1,4 +1,5 @@
 import sys
+import time
 
 from tasks import *
 from tasks.abstracttask import AbstractTask
@@ -16,9 +17,15 @@ def main():
         else:
             print(f"Task #{number}")
             print("Simple:")
+            start = time.time()
             print(task.simple_task())
+            end = time.time()
+            print("Elapsed: {elapsed:.5f}".format(elapsed=end - start))
             print("Extended:")
+            start = time.time()
             print(task.extended_task())
+            end = time.time()
+            print("Elapsed: {elapsed:.5f}".format(elapsed=end - start))
 
     except ValueError:
         print('Error: Argument must be an integer.')
