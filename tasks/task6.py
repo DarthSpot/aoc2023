@@ -13,10 +13,8 @@ class Task6(AbstractTask):
 
     def extended_task(self):
         input = [int(''.join(y)) for y in [x.split()[1:] for x in self.read_file_lines()]]
-        min = math.ceil((input[0] - math.sqrt(input[0] * input[0] - 4 * input[1])) / 2)
-        max = math.floor((input[0] + math.sqrt(input[0] * input[0] - 4 * input[1])) / 2)
-
-        return max - min + 1
+        return (math.floor((input[0] + math.sqrt(input[0] * input[0] - 4 * input[1])) / 2)
+                - math.ceil((input[0] - math.sqrt(input[0] * input[0] - 4 * input[1])) / 2) + 1)
 
 
 
