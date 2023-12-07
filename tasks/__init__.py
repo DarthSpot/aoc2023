@@ -4,3 +4,4 @@ from tasks.task3 import Task3
 from tasks.task4 import Task4
 from tasks.task5 import Task5
 from tasks.task6 import Task6
+from tasks.task7 import Task7
