@@ -8,3 +8,4 @@ from tasks.task7 import Task7
 from tasks.task8 import Task8
 from tasks.task9 import Task9
 from tasks.task10 import Task10
+from tasks.task11 import Task11
