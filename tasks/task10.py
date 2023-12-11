@@ -34,6 +34,7 @@ class Task10(AbstractTask):
         super().__init__(10)
 
     def simple_task(self):
+        return ''
         lines = self.read_file_lines()
         map = {}
         start = None
@@ -61,16 +62,7 @@ class Task10(AbstractTask):
 
 
     def extended_task(self):
-        lines = """FF7FSF7F7F7F7F7F---7
-L|LJ||||||||||||F--J
-FL-7LJLJ||||||LJL-77
-F--JF--7||LJLJ7F7FJ-
-L---JF-JLJ.||-FJLJJ7
-|F|F-JF---7F7-L7L|7|
-|FFJF7L7F-JF7|JL---7
-7-L-JL7||F7|L7F-7F7|
-L.L7LFJ|||||FJL7||LJ
-L7JLJL-JLJLJL--JLJ.L""".split("\n")
+        lines = self.read_file_lines()
         map = {}
         start = None
         for y in range(len(lines)):
@@ -81,6 +73,17 @@ L7JLJL-JLJLJL--JLJ.L""".split("\n")
                     start = pipe.pos
         distances = [[start]]
         visited = [start]
+        # replace S sign
+        startneighbors = tuple(set([(n[0] - start[0], n[1] - start[1]) for n in map[start].neighbors if n in map.keys() and map[n].isconnected(map[start])]))
+        map[start].char = {
+            ((-1, 0), (1, 0)): '-',
+            ((-1, 0), (0, -1)): 'J',
+            ((-1, 0), (0, 1)): '7',
+            ((1, 0), (0, -1)): 'L',
+            ((1, 0), (0, 1)): 'F',
+            ((0, -1), (0, 1)): '|',
+        }[startneighbors]
+
         found = True
         while found:
             found = False
@@ -95,16 +98,18 @@ L7JLJL-JLJLJL--JLJ.L""".split("\n")
                 distances.append(newneighbors)
 
         pipeline = set(visited)
-        dots = [v for k,v in map.items() if v.char == '.']
-        fields = 0
-        for dot in dots:
-            leftlen = len([p for p in [map[(x, dot.pos[1])] for x in range(dot.pos[0]-1, -1, -1)] if p.pos in pipeline and p.char != '-'])
-            rightlen = len([p for p in [map[(x, dot.pos[1])] for x in range(dot.pos[0], len(lines[0]))] if p.pos in pipeline and p.char != '-'])
-            uplen = len([p for p in [map[(dot.pos[0], y)] for y in range(dot.pos[1]-1, -1, -1)] if p.pos in pipeline and p.char != '|'])
-            downlen = len([p for p in [map[(dot.pos[0], y)] for y in range(dot.pos[1], len(lines))] if p.pos in pipeline and p.char != '|'])
-            if len([x for x in [leftlen, rightlen, uplen, downlen] if x % 2 == 0]) == 0:
-                fields += 1
-        return fields
+
+        dots = []
+        for y in range(len(lines)):
+            inPipe = False
+            for x in range(len(lines[0])):
+                pos = (x, y)
+                char = map[pos].char
+                if pos in pipeline and char in '|F7':
+                    inPipe = not inPipe
+                elif pos not in pipeline and inPipe:
+                    dots.append(pos)
+        return len(dots)
 
 
 
