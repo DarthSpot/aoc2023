@@ -1,39 +1,20 @@
 from tasks.abstracttask import AbstractTask
 
-
-def getmirror(map):
-    mirror = set(range(len(map[0])))
-    for row in map:
-        current = []
-        for idx in range(1, len(row)):
-            left = row[0:idx][::-1]
-            right = row[idx:]
-            z = list(zip(left, right))
-            if all([a == b for a,b in z]):
-                current.append(idx)
-        mirror = mirror.intersection(current)
-        if len(mirror) == 0:
-            return None
-    return list(mirror)[0]
-
-def getsmudgedline(map, oldmirror):
+def getmirror(map, extended):
     mapdata = []
     for row in map:
         current = {}
         for idx in range(1, len(row)):
-            if oldmirror is not None or oldmirror != idx:
-                left = row[0:idx][::-1]
-                right = row[idx:]
-                z = list(zip(left, right))
-                current[idx] = len([x for x in [a == b for a,b in z] if not x])
+            left = row[0:idx][::-1]
+            right = row[idx:]
+            z = list(zip(left, right))
+            current[idx] = len([x for x in [a == b for a, b in z] if not x])
         mapdata.append(current)
     errors = [(idx, [y[idx] for y in mapdata]) for idx in range(1, len(map[0]))]
-    singularerrors = [idx for idx, x in errors if sum(x) == 1]
-    if len(singularerrors) == 1:
-        return singularerrors[0]
+    result = [idx for idx, x in errors if sum(x) == (1 if extended else 0)]
+    if len(result) == 1:
+        return result[0]
     return None
-
-
 
 class Task13(AbstractTask):
     def __init__(self):
@@ -46,8 +27,8 @@ class Task13(AbstractTask):
         result = 0
         for map in input:
             turnedmap = [[map[y][x] for y in range(len(map))] for x in range(len(map[0]))]
-            h = getmirror(map)
-            v = getmirror(turnedmap)
+            h = getmirror(map, False)
+            v = getmirror(turnedmap, False)
             if h is not None:
                 result += h
             if v is not None:
@@ -64,14 +45,12 @@ class Task13(AbstractTask):
         result = 0
         for map in input:
             turnedmap = [[map[y][x] for y in range(len(map))] for x in range(len(map[0]))]
-            h = getmirror(map)
-            v = getmirror(turnedmap)
-            hx = getsmudgedline(map, h)
-            vx = getsmudgedline(turnedmap, v)
-            if hx is not None:
-                result += hx
-            if vx is not None:
-                result += 100 * vx
+            h = getmirror(map, True)
+            v = getmirror(turnedmap, True)
+            if h is not None:
+                result += h
+            if v is not None:
+                result += 100 * v
         return result
 
 
