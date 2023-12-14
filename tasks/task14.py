@@ -1,3 +1,5 @@
+from PIL import Image
+
 from tasks.abstracttask import AbstractTask
 
 
@@ -9,6 +11,24 @@ class Rock:
 
     def move(self, x: int, y: int):
         self.current_pos = (x, y)
+
+
+def toimage(path: str, height: int, width: int, rocks: [Rock]):
+    rockmap = {(rock.current_pos[0], rock.current_pos[1]): rock for rock in rocks}
+    img = Image.new('RGB', (width*2, height*2), "black")
+    pixels = img.load()
+    for idy in range(height):
+        for idx in range(width):
+            col = (0, 0, 0)
+            if (idx, idy) in rockmap:
+                rock = rockmap[(idx, idy)]
+                col = (0, 255, 0) if rock.is_moving else (0, 0, 255)
+
+            pixels[idx * 2, idy * 2] = col
+            pixels[idx * 2 + 1, idy * 2] = col
+            pixels[idx * 2, idy * 2 + 1] = col
+            pixels[idx * 2 + 1, idy * 2 + 1] = col
+    img.save(path)
 
 
 def movenorth(width: int, height: int, squarerocks: [Rock], roundrocks: [Rock]):
@@ -132,11 +152,16 @@ class Task14(AbstractTask):
         idx = 0
         while currentSet not in map:
             map.append(currentSet)
+            toimage(f"image/{idx:03d}_0.bmp", len(lines), len(lines[0]), rocks)
             movenorth(len(lines[0]), len(lines), squarerocks, roundrocks)
+            toimage(f"image/{idx:03d}_1.bmp", len(lines), len(lines[0]), rocks)
             movewest(len(lines[0]), len(lines), squarerocks, roundrocks)
+            toimage(f"image/{idx:03d}_2.bmp", len(lines), len(lines[0]), rocks)
             movesouth(len(lines[0]), len(lines), squarerocks, roundrocks)
+            toimage(f"image/{idx:03d}_3.bmp", len(lines), len(lines[0]), rocks)
             moveeast(len(lines[0]), len(lines), squarerocks, roundrocks)
             currentSet = set([x.current_pos for x in roundrocks])
+
             idx += 1
 
         idx = map.index(currentSet)
