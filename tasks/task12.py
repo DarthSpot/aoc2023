@@ -1,5 +1,3 @@
-import regex
-
 from tasks.abstracttask import AbstractTask
 
 def buildvariantstring(items: [(int, (int, int))], length: int, offset: int):
