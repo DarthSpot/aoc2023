@@ -12,3 +12,4 @@ from tasks.task11 import Task11
 from tasks.task12 import Task12
 from tasks.task13 import Task13
 from tasks.task14 import Task14
+from tasks.task15 import Task15
