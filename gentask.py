@@ -10,7 +10,7 @@ def main():
         fn = f"task{number}.py"
         tn = f"Task{number}"
         folder = "tasks"
-        importline = f"from tasks.task{number} import {tn}"
+        importline = f"from tasks.task{number} import {tn}\n"
         file = path.join(folder, fn)
         if not path.exists(file):
             f = open(file, 'w')
