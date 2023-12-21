@@ -56,7 +56,6 @@ class Task21(AbstractTask):
         steps = 0
         values = []
         max_step_mod = max_steps % h
-        plen = 0
         while len(values) < 3:
             steps += 1
             current, positions = set(positions), set()
@@ -67,9 +66,7 @@ class Task21(AbstractTask):
                     if lines[posy % h][posx % w] in 'S.':
                         positions.add(new_pos)
             if steps % h == max_step_mod:
-                print(steps, len(positions), len(positions) - plen)
                 values.append(len(positions))
-                plen = len(positions)
 
         return calc_result(values, max_steps // h)
 
