@@ -19,3 +19,4 @@ from tasks.task17 import Task17
 from tasks.task18 import Task18
 from tasks.task19 import Task19
 from tasks.task20 import Task20
+from tasks.task21 import Task21
